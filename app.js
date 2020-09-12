@@ -14,6 +14,18 @@ var postsRouter = require("./routes/posts.route");
 
 var app = express();
 
+app.use(
+  session({
+    secret: "Hackernew-opo1121",
+    // resave: false,
+    // store: new MemoryStore({
+    //   checkPeriod: 86400000, // prune expired entries every 24h
+    // }),
+    // saveUninitialized: true,
+    // cookie: { httpOnly: false },
+  })
+);
+
 // MongoDB Connect
 var dburl =
   "mongodb+srv://user1:12345@hackernewsclone.0qubq.mongodb.net/HackerNews?retryWrites=true&w=majority";
@@ -35,17 +47,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
-app.use(
-  session({
-    secret: "Hackernew-opo1121",
-    // resave: false,
-    // store: new MemoryStore({
-    //   checkPeriod: 86400000, // prune expired entries every 24h
-    // }),
-    // saveUninitialized: true,
-    // cookie: { httpOnly: false },
-  })
-);
 
 app.use("/", indexRouter);
 app.use("/users/", usersRouter);
