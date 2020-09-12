@@ -3,7 +3,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var session = require("express-session");
-var MemoryStore = require("memorystore")(session);
+var MongoDBStore = require("connect-mongodb-session")(session);
 var mongoose = require("mongoose");
 
 const cors = require("cors");
@@ -14,15 +14,23 @@ var postsRouter = require("./routes/posts.route");
 
 var app = express();
 
+var store = new MongoDBStore({
+  uri:
+    "mongodb+srv://user1:12345@hackernewsclone.0qubq.mongodb.net/HackerNews?retryWrites=true&w=majority",
+  collection: "mySessions",
+});
+
+store.on("error", function (error) {
+  console.log(error);
+});
+
 app.use(
   session({
     secret: "Hackernew-opo1121",
-    // resave: false,
-    // store: new MemoryStore({
-    //   checkPeriod: 86400000, // prune expired entries every 24h
-    // }),
-    // saveUninitialized: true,
-    // cookie: { httpOnly: false },
+    resave: false,
+    store: store,
+    saveUninitialized: true,
+    cookie: { httpOnly: false },
   })
 );
 
