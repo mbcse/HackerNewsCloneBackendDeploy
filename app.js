@@ -34,9 +34,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(
-  cors({ credentials: true, origin: "https://hackernews-pied.vercel.app" })
-);
+app.use(cors({ credentials: true, origin: "http://localhost:8081" }));
 app.use(
   session({
     secret: "Hackernew-opo1121",
