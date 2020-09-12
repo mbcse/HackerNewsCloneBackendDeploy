@@ -38,12 +38,12 @@ app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(
   session({
     secret: "Hackernew-opo1121",
-    resave: false,
-    store: new MemoryStore({
-      checkPeriod: 86400000, // prune expired entries every 24h
-    }),
-    saveUninitialized: true,
-    cookie: { httpOnly: false },
+    // resave: false,
+    // store: new MemoryStore({
+    //   checkPeriod: 86400000, // prune expired entries every 24h
+    // }),
+    // saveUninitialized: true,
+    // cookie: { httpOnly: false },
   })
 );
 
